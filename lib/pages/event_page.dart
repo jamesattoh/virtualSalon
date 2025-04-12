@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
 
-class EventPage extends StatelessWidget {
+class EventPage extends StatefulWidget {
   const EventPage({super.key});
+
+  @override
+  State<EventPage> createState() => _EventPageState();
+}
+
+class _EventPageState extends State<EventPage> {
+
+  final events = [
+    {
+      "speaker" : "Damien Cavaillès",
+      "date" : "17h30 à 18h",
+      "subject" : "git blame --no-offense",
+      "avatar" : "damien"
+    },
+    {
+      "speaker" : "Defen Intelligence",
+      "date" : "18h à 18h30",
+      "subject" : "À la découverte de l'IA générative",
+      "avatar" : "defendintelligence"
+    },
+    {
+      "speaker" : "Lior Chamla",
+      "date" : "13h30 à 14h",
+      "subject" : "Le Low-code",
+      "avatar" : "lior"
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -10,34 +37,26 @@ class EventPage extends StatelessWidget {
         title: Text("Planning du Salon"),
       ),
       body: Center(
-        child: ListView(
-          children: [
-            Card(
+        child: ListView.builder(
+          itemCount: events.length,
+          itemBuilder: (context, index) { //dans le builder de chaque element on va récupérer le contexte et l'index
+
+            final event = events[index];
+            final avatar = event['avatar'];
+            final speaker = event['speaker'];
+            final subject = event['subject'];
+            final date = event['date'];
+
+            return Card(
               child: ListTile(
-                leading: Image.asset("assets/images/damien.jpg"),
-                title: Text("Damein Cavaillès (17h30 à 18H)"),
-                subtitle: Text("git blame --no-offense"),
+                leading: Image.asset('assets/images/$avatar.jpg'),
+                title: Text('$speaker ($date)'),
+                subtitle: Text('$subject'),
                 trailing: Icon(Icons.more_vert),
               ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/defendintelligence.jpg"),
-                title: Text("Defend Intelligence (18h à 18h30)"),
-                subtitle: Text("À la découverte de l'IA générative"),
-                trailing: Icon(Icons.more_vert),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                leading: Image.asset("assets/images/lior.jpg"),
-                title: Text("Lior Chamla (13h à 13h30)"),
-                subtitle: Text("Le code Legacy"),
-                trailing: Icon(Icons.more_vert),
-              ),
-            ),
-          ],
-        ),
+            );
+          },
+        )
       ),
     );
   }
