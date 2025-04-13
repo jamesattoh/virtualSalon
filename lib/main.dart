@@ -1,3 +1,4 @@
+import 'package:dolgen/pages/add_event_page.dart';
 import 'package:dolgen/pages/event_page.dart';
 import 'package:dolgen/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +32,20 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Salon Dolgen"),
+          title: [
+            Text("Accueil"),
+            Text("Planning des conférences"),
+            Text("Formulaire")
+          ][_currentIndex],
           backgroundColor: Colors.lightGreen,
         ),
         body: [
           HomePage(),
-          EventPage()
+          EventPage(),
+          AddEventPage()
         ][_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed, // la barre aura une largeur fixe et toutes les étiquettes seront toujours affichées sous leurs icônes
           currentIndex: _currentIndex,
           onTap: (index) => setCurrentIndex(index), // on aurait pu mettre onTap: (jugo) => setCurrentIndex(jugo),
           selectedItemColor: Colors.lightGreen,
@@ -55,6 +62,10 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month),
               label: 'Planning',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'Ajout',
             ),
           ],
         ),
