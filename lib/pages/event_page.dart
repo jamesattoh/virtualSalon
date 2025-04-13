@@ -32,11 +32,7 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Planning du Salon"),
-      ),
-      body: Center(
+    return Center(
         child: ListView.builder(
           itemCount: events.length,
           itemBuilder: (context, index) { //dans le builder de chaque element on va récupérer le contexte et l'index
@@ -52,12 +48,11 @@ class _EventPageState extends State<EventPage> {
                 leading: Image.asset('assets/images/$avatar.jpg'),
                 title: Text('$speaker ($date)'),
                 subtitle: Text('$subject'),
-                trailing: Icon(Icons.more_vert),
+                trailing: Icon(Icons.info_outline),
               ),
             );
           },
         )
-      ),
     );
   }
 }
