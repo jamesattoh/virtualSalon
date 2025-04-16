@@ -14,6 +14,7 @@ class _AddEventPageState extends State<AddEventPage> {
   final confNameController = TextEditingController();
   final speakerNameController = TextEditingController();
 
+  String selectedConfType = 'talk';
   // quand on cree de la memoire il faut aussi penser a la liberer
   @override
   void dispose() {
@@ -65,6 +66,25 @@ class _AddEventPageState extends State<AddEventPage> {
                 controller: speakerNameController, // une sorte de lien entre la boite qui memorise le contenu et le champ sur lequel on va ecrire
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: DropdownButtonFormField(
+                  items: [
+                    DropdownMenuItem(value: 'talk', child: Text("Talk Show")),
+                    DropdownMenuItem(value: 'demo', child: Text("Demo Code")),
+                    DropdownMenuItem(value: 'partner', child: Text("Partner Time"))
+                  ],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder()
+                  ),
+                  value: selectedConfType, // valeur par defaut pour eviter le validator pour le cas nul
+                  onChanged: (value){
+                    setState(() { // mettre a jour le state de l'ecran
+                      selectedConfType = value!; // le ! car cette valeur peut etre nulle
+                    });
+                  },
+              ),
+            ),
             //SizedBox(height: 15),
             SizedBox(
               width: double.infinity,
@@ -81,6 +101,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       FocusScope.of(context).requestFocus(FocusNode()); // lorsqu'on clique sur le bouton Envoyer, cette ligne de code ferme le clavier
                       
                       print(" Ajout de la conf $confName par le speaker $speakerName");
+                      print("Type de conference : $selectedConfType");
                     }
                   },
                   style: ButtonStyle(
