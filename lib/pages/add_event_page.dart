@@ -121,7 +121,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       );
                       FocusScope.of(context).requestFocus(FocusNode()); // lorsqu'on clique sur le bouton Envoyer, cette ligne de code ferme le clavier
                       
-
+                      // ajout dans la base de données
+                      CollectionReference eventsRef =  FirebaseFirestore.instance.collection("Events");  // récupérons d'abord la collection
+                      eventsRef.add({
+                        'speaker' : speakerName,
+                        'date' : selectedConfDate,
+                        'subject' : confName,
+                        'type' : selectedConfType,
+                        'avatar' : 'lior'
+                      });
                     }
                   },
                   style: ButtonStyle(
