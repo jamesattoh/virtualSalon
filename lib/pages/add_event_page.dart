@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -15,6 +17,8 @@ class _AddEventPageState extends State<AddEventPage> {
   final speakerNameController = TextEditingController();
 
   String selectedConfType = 'talk';
+  DateTime selectedConfDate = DateTime.now();
+
   // quand on cree de la memoire il faut aussi penser a la liberer
   @override
   void dispose() {
@@ -85,6 +89,23 @@ class _AddEventPageState extends State<AddEventPage> {
                   },
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: DateTimeFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Choisir une date',
+                  border: OutlineInputBorder()
+                ),
+                firstDate: DateTime.now().add(const Duration(days: 10)),
+                lastDate: DateTime.now().add(const Duration(days: 40)),
+                initialPickerDateTime: DateTime.now().add(const Duration(days: 20)),
+                onChanged: (DateTime? value) {
+                  setState(() {
+                    var selectedConfDate  = value;
+                  });
+                },
+              ),
+            ),
             //SizedBox(height: 15),
             SizedBox(
               width: double.infinity,
@@ -100,8 +121,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       );
                       FocusScope.of(context).requestFocus(FocusNode()); // lorsqu'on clique sur le bouton Envoyer, cette ligne de code ferme le clavier
                       
-                      print(" Ajout de la conf $confName par le speaker $speakerName");
-                      print("Type de conference : $selectedConfType");
+
                     }
                   },
                   style: ButtonStyle(

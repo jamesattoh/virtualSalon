@@ -17,7 +17,7 @@ class _EventPageState extends State<EventPage> {
       "avatar" : "damien"
     },
     {
-      "speaker" : "Defen Intelligence",
+      "speaker" : "Defend Intelligence",
       "date" : "18h à 18h30",
       "subject" : "À la découverte de l'IA générative",
       "avatar" : "defendintelligence"
