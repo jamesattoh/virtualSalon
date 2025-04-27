@@ -14,9 +14,12 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Center(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Events').orderBy('date').snapshots(), // recuperation du flux de la collection
+          stream: FirebaseFirestore.instance.collection('Events').snapshots(), // recuperation du flux de la collection
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) { // pour construire la vue
             if (snapshot.connectionState == ConnectionState.waiting){
               return CircularProgressIndicator();
@@ -50,7 +53,10 @@ class _EventPageState extends State<EventPage> {
                     leading: Image.asset('assets/images/$avatar.jpg'),
                     title: Text('$speaker ($date)'),
                     subtitle: Text('$subject'),
-                    trailing: Icon(Icons.info_outline),
+                    trailing: IconButton(
+                      icon: Icon(Icons.info_outline),
+                      onPressed: () {  },
+                    ),
                   ),
                 );
               },
