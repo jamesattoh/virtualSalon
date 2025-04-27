@@ -15,7 +15,39 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
 
-
+    Future<void> showEventDetailsDialog() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Conférence'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Image.asset("assets/images/lior.jpg", height: 120,),
+                  Text('Titre : Sujet de la conf.'),
+                  Text('Speaker : Lior Chamla'),
+                  Text('Date de la conf : 19 avril 2025 à 14h'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              ElevatedButton.icon(
+                icon: Icon(Icons.calendar_month),
+                onPressed: (){}, 
+                label: Text("Ajouter au calendrier")),
+              TextButton(
+                child: const Text('Fermer'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Center(
         child: StreamBuilder(
@@ -55,7 +87,7 @@ class _EventPageState extends State<EventPage> {
                     subtitle: Text('$subject'),
                     trailing: IconButton(
                       icon: Icon(Icons.info_outline),
-                      onPressed: () {  },
+                      onPressed: () { showEventDetailsDialog(); },
                     ),
                   ),
                 );
